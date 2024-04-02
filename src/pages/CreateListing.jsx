@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 
 function CreateListing() {
@@ -63,7 +64,23 @@ function CreateListing() {
 
   const onSubmit = e =>{
     e.preventDefault()
-    console.log(formData)
+    // console.log(formData)
+     
+    setLoading(true)
+
+    if (discountedPrice >= regularPrice){
+        setLoading(false)
+        toast.error('discounted price needs to be less than reg price  ')
+        return
+    }
+
+    if (images.length > 6) {
+        setLoading(false)
+        toast.error('Max 6 images')
+        return
+      }
+
+      
   }
 
   const onMutate = e =>{
